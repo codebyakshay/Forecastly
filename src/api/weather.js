@@ -2,7 +2,7 @@ const API_KEY = '34845b794cf1314c2fc94b09b248acc8'; // Replace with your OpenWea
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 export const fetchWeather = async ({ queryKey }) => {
-  const { lat, lon } = queryKey[1]; // Corrected destructuring
+  const { lat, lon } = queryKey[1];
   const response = await fetch(
     `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
   );

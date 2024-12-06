@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
 
   textStyle: {
     fontFamily: fonts.Parkinsans.medium,
-    fontSize: wp('5%'),
+    fontSize: wp('7%'),
   },
 
   // footer styles

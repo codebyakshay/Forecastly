@@ -8,34 +8,63 @@ import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import WeatherSummary from '../../components/WeatherSummary/WeatherSummary';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import TodayDetailsTab from '../TodayDetailsTab/TodayDetailsTab';
-import { fetchWeather, fetchForecast } from '../../api/weather';
 import { useQuery } from '@tanstack/react-query';
+const API_KEY = '34845b794cf1314c2fc94b09b248acc8'; // Replace with your OpenWeather API key
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeButton, setActiveButton] = useState('Today');
-  const lat = 21.2514;
-  const lon = 81.6296;
+  const lat = 48.8575;
+  const lon = 2.3514;
 
-  // Query for current weather
-  const weatherDetails = useQuery({
-    queryKey: ['weather', { lat, lon }],
-    queryFn: fetchWeather,
+  const {
+    data: weatherDetails,
+    isLoading: weatherIsLoading,
+    error: weatherError,
+  } = useQuery({
+    queryKey: ['weather', lat, lon],
+    queryFn: () =>
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
+      ).then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      }),
   });
 
-  // Query for forecast
-  const forecastDetails = useQuery({
-    queryKey: ['forecast', { lat, lon }],
-    queryFn: fetchForecast,
+  const {
+    data: forecastDetails,
+    isLoading: forecastIsLoading,
+    error: forecastError,
+  } = useQuery({
+    queryKey: ['forecast', lat, lon],
+    queryFn: () =>
+      fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
+      ).then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      }),
   });
 
-  // Error handling
-  if (weatherDetails.isError) {
-    console.error('Error fetching weather data:', weatherDetails.error);
+  if (weatherIsLoading) {
+    return <Text>Loading...</Text>;
   }
 
-  if (forecastDetails.isError) {
-    console.error('Error fetching forecast data:', forecastDetails.error);
+  if (weatherError) {
+    return <Text>Error fetching data</Text>;
+  }
+
+  if (forecastIsLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (forecastError) {
+    return <Text>Error fetching data</Text>;
   }
 
   return (
@@ -46,10 +75,8 @@ export default function HomeScreen() {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.placeContainer}>
-            <View style={{ width: widthPercentageToDP('40%') }}>
-              <Text style={styles.textStyle}>
-                {'Delhi'}, {'India'}
-              </Text>
+            <View style={{ width: widthPercentageToDP('55%') }}>
+              <Text style={styles.textStyle}>{weatherDetails?.name}</Text>
             </View>
 
             <TouchableOpacity
@@ -71,19 +98,15 @@ export default function HomeScreen() {
           </View>
 
           <View>
-            <WeatherCard
-              data={weatherDetails?.data}
-              forecast={forecastDetails}
-            />
+            <WeatherCard data={weatherDetails} forecast={forecastDetails} />
           </View>
 
           <View>
-            <WeatherSummary
-              data={weatherDetails?.data}
-              forecast={forecastDetails?.data}
-            />
+            <WeatherSummary weather={weatherDetails} />
           </View>
         </View>
+
+        {/* {console.log('/forecast', forecastDetails)} */}
 
         {/* Footer with Segment Controller */}
         <View style={styles.footer}>
@@ -106,8 +129,8 @@ export default function HomeScreen() {
           </View>
           {activeButton == 'Today' ? (
             <TodayDetailsTab
-              forecast={forecastDetails?.data}
-              weather={weatherDetails?.data}
+              forecast={forecastDetails}
+              weather={weatherDetails}
             />
           ) : null}
         </View>

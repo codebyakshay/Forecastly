@@ -21,8 +21,8 @@ export const styles = StyleSheet.create({
   },
 
   feelLikeText: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.5)',
     fontFamily: fonts.Montserrat.light,
   },
 

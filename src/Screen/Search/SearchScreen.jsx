@@ -16,7 +16,7 @@ const SearchScreen = () => {
         <GooglePlacesAutocomplete
           placeholder="Search City..."
           onPress={(data, details = null) => {
-            console.log(data, details);
+            // console.log(data, details);
           }}
           query={{
             key: 'YOUR_GOOGLE_API_KEY',

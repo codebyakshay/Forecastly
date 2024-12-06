@@ -15,6 +15,7 @@ const WeatherInfoCard = ({
   label = 'Wind Speed',
   value = '12',
   unit = 'Km/H',
+  change = '',
 }) => {
   const changeInWindSpeed = todayWindSpeed - yesterdayWindSpeed;
   return (
@@ -36,18 +37,6 @@ const WeatherInfoCard = ({
               {value} {unit}
             </Text>
           </View>
-        </View>
-
-        <View style={styles.changeIndicator}>
-          {changeInWindSpeed > 0 ? (
-            <ArrowUp name="arrow-drop-up" size={15} color="purple" />
-          ) : changeInWindSpeed < 0 ? (
-            <ArrowDown name="arrow-drop-down" size={15} color="#880808" />
-          ) : null}
-
-          <Text style={{ fontSize: 10 }}>
-            {changeInWindSpeed}% {unit}
-          </Text>
         </View>
       </View>
     </View>

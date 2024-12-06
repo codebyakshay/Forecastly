@@ -3,43 +3,45 @@ import React from 'react';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { fonts } from '../../Constant/Fonts';
 
-export default function WeatherSummary({ data, forecast }) {
-  if (!data?.dt || !forecast?.list) {
-    return null;
-  }
+export default function WeatherSummary({ weather }) {
+  // Calculate local timestamp
+  const localTimestamp = (weather.dt + weather.timezone) * 1000;
+  const localDate = new Date(localTimestamp);
 
-  // Date formatting
-  const date = new Date(data.dt * 1000);
-  const formattedDate = date.toLocaleString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
+  // Arrays to map numeric day/month to names
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-  // Calculate max and min temperatures from forecast data
-  let maxTemp = Number.MIN_VALUE;
-  let minTemp = Number.MAX_VALUE;
+  // Extract date/time components using UTC methods
+  const dayName = daysOfWeek[localDate.getUTCDay()];
+  const monthName = months[localDate.getUTCMonth()];
+  const day = localDate.getUTCDate();
+  const hours = String(localDate.getUTCHours()).padStart(2, '0');
+  const minutes = String(localDate.getUTCMinutes()).padStart(2, '0');
 
-  forecast.list.forEach((item) => {
-    const temp = item.main.temp;
-    if (temp > maxTemp) maxTemp = temp;
-    if (temp < minTemp) minTemp = temp;
-  });
-
-  maxTemp = maxTemp === Number.MIN_VALUE ? '--' : maxTemp.toFixed(1);
-  minTemp = minTemp === Number.MAX_VALUE ? '--' : minTemp.toFixed(1);
+  // Format the date string as desired
+  const formattedDate = `${dayName}, ${monthName} ${day}, ${hours}:${minutes}`;
 
   return (
     <View
       style={{
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
         marginVertical: 10,
+        marginHorizontal: 20,
       }}>
       <View style={{ width: widthPercentageToDP('50%') }}>
         <Text
@@ -49,28 +51,6 @@ export default function WeatherSummary({ data, forecast }) {
             fontFamily: fonts.Montserrat.light,
           }}>
           {formattedDate}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          justifyContent: 'flex-end',
-        }}>
-        <Text
-          style={{
-            fontSize: 14,
-            color: 'white',
-            fontFamily: fonts.Montserrat.semiBold,
-          }}>
-          Day {Math.round(maxTemp)}°
-        </Text>
-        <Text
-          style={{
-            fontSize: 14,
-            color: 'white',
-            fontFamily: fonts.Montserrat.semiBold,
-          }}>
-          Night {Math.round(minTemp)}°
         </Text>
       </View>
     </View>

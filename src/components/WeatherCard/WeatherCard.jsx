@@ -51,7 +51,7 @@ const WeatherCard = ({ data, forecast }) => {
             justifyContent: 'center',
             alignItems: 'center',
             position: 'absolute',
-            right: -50,
+            right: 0,
             bottom: 0,
           }}>
           <View>
@@ -59,8 +59,8 @@ const WeatherCard = ({ data, forecast }) => {
               <Image
                 source={{ uri: iconUrl }}
                 style={{
-                  width: wp('50%'),
-                  height: wp('50%'),
+                  width: wp('35%'),
+                  height: wp('35%'),
                   marginBottom: 10,
                 }}
                 resizeMode="contain"
@@ -77,12 +77,7 @@ const WeatherCard = ({ data, forecast }) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={styles.conditionText}>
-              {data?.weather?.[0]?.description
-                ? data.weather[0].description.charAt(0).toUpperCase() +
-                  data.weather[0].description.slice(1)
-                : '--'}
-            </Text>
+            <Text style={styles.conditionText}>{data?.weather?.[0]?.main}</Text>
           </View>
         </View>
       </View>
