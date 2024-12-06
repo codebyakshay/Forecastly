@@ -11,11 +11,10 @@ import TodayDetailsTab from '../TodayDetailsTab/TodayDetailsTab';
 import { useQuery } from '@tanstack/react-query';
 const API_KEY = '34845b794cf1314c2fc94b09b248acc8'; // Replace with your OpenWeather API key
 
-export default function HomeScreen() {
+export default function HomeScreen({ route }) {
+  const { lat = 28.7041, lon = -77.1025 } = route.params || {};
   const navigation = useNavigation();
   const [activeButton, setActiveButton] = useState('Today');
-  const lat = 48.8575;
-  const lon = 2.3514;
 
   const {
     data: weatherDetails,
@@ -87,7 +86,6 @@ export default function HomeScreen() {
               }}
               onPress={() => {
                 navigation.navigate('Search');
-                console.log('pressed');
               }}>
               <Search
                 name="search"
@@ -105,8 +103,6 @@ export default function HomeScreen() {
             <WeatherSummary weather={weatherDetails} />
           </View>
         </View>
-
-        {/* {console.log('/forecast', forecastDetails)} */}
 
         {/* Footer with Segment Controller */}
         <View style={styles.footer}>

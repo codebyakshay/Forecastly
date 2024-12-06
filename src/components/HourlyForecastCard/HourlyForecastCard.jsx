@@ -58,7 +58,6 @@ export default function HourlyForecastCard({ forecast }) {
     return <HourCard time={time} temperature={temperature} iconUrl={iconUrl} />;
   };
 
-  console.log(forecast);
   return (
     <View style={styles.card}>
       <View style={styles.header}>

@@ -14,8 +14,6 @@ export default function TodayDetailsTab({ weather, forecast }) {
   const humidity = weather?.main?.humidity || '--';
   const pressure = weather?.main?.pressure || '--';
 
-  // console.log(weather);
-
   return (
     <ScrollView style={{ flex: 1, marginBottom: 10 }}>
       <View style={styles.weatherInfoContainer}>

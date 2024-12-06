@@ -8,14 +8,14 @@ const Stack = createNativeStackNavigator({
     Home: {
       screen: HomeScreen,
       options: {
-        headerShown: false, // Hide header for HomeScreen
+        headerShown: false,
       },
     },
     Search: {
       screen: SearchScreen,
       options: {
-        headerShown: true, // Show header for SearchScreen
-        title: 'Search', // Set title for SearchScreen
+        headerShown: true,
+        title: 'Search',
       },
     },
   },
