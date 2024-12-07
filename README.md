@@ -20,7 +20,7 @@ Forecastly is a weather forecasting app designed to provide users with real-time
 
 - **Sunrise and Sunset Times:** Shows daily sunrise and sunset times.
 
-### SCREEN SHORT
+### Screenshot
 
 <p>
   <img src="https://codebyakshay.com/demo_forecastly/Search.png" alt="Search Screen" width="300" />
