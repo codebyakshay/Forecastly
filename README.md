@@ -19,19 +19,19 @@ Forecastly is a weather forecasting app designed to provide users with real-time
 ### SCREEN SHORT
 
 <p>
-  <img src="https://codebyakshay.com/demo_forecastly/Search.png" alt="Search Screen" width="350" />
-  <img src="https://codebyakshay.com/demo_forecastly/Search_result.png" alt="Search Results" width="350" />
+  <img src="https://codebyakshay.com/demo_forecastly/Search.png" alt="Search Screen" width="300" />
+  <img src="https://codebyakshay.com/demo_forecastly/Search_result.png" alt="Search Results" width="300" />
 </p>
 
 <p>
-  <img src="https://codebyakshay.com/demo_forecastly/Home_10Day.png" alt="Home Screen 10 Days" width="350" />
+  <img src="https://codebyakshay.com/demo_forecastly/Home_10Day.png" alt="Home Screen 10 Days" width="300" />
 </p>
 
 <p>
-  <img src="https://codebyakshay.com/demo_forecastly/Home_nextDay.png" alt="Home Screen Tomorrow" width="350" />
+  <img src="https://codebyakshay.com/demo_forecastly/Home_nextDay.png" alt="Home Screen Tomorrow" width="300" />
 </p>
 
 <p>
   <img src="https://codebyakshay.com/demo_forecastly/Home_1.png" alt="Home Screen" width="350" />
-  <img src="https://codebyakshay.com/demo_forecastly/Home_2.png" alt="Home Screen Next" width="350" />
+  <img src="https://codebyakshay.com/demo_forecastly/Home_2.png" alt="Home Screen Next" width="300" />
 </p>
