@@ -6,6 +6,10 @@ Forecastly is a weather forecasting app designed to provide users with real-time
   <img src="https://codebyakshay.com/demo_forecastly/demo.gif" alt="Forecastly Demo" width="350" />
 </p>
 
+## Download
+
+[Download the Forecastly APK](https://codebyakshay.com/demo_forecastly/forecastley-V.1.apk)
+
 ## Features
 
 - **Current Weather Conditions:** Displays temperature, humidity, wind speed, and more.
