@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator({
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-    animation: 'slide_from_left',
+    animation: 'fade_from_bottom',
     headerTitleAlign: 'center',
     gestureEnabled: true,
     contentStyle: {

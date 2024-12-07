@@ -9,22 +9,29 @@ import WeatherSummary from '../../components/WeatherSummary/WeatherSummary';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import TodayDetailsTab from '../TodayDetailsTab/TodayDetailsTab';
 import { useQuery } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+import { coordsAtom } from '../../store/store';
+
 const API_KEY = '34845b794cf1314c2fc94b09b248acc8'; // Replace with your OpenWeather API key
 
 export default function HomeScreen({ route }) {
-  const { lat = 28.7041, lon = -77.1025 } = route.params || {};
   const navigation = useNavigation();
   const [activeButton, setActiveButton] = useState('Today');
+
+  const [coords] = useAtom(coordsAtom);
+
+  // Destructure latitude and longitude from Jotai state
+  const { lat, lng } = coords;
 
   const {
     data: weatherDetails,
     isLoading: weatherIsLoading,
     error: weatherError,
   } = useQuery({
-    queryKey: ['weather', lat, lon],
+    queryKey: ['weather', lat, lng],
     queryFn: () =>
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
       ).then((res) => {
         if (!res.ok) {
           throw new Error('Network response was not ok');
@@ -38,10 +45,10 @@ export default function HomeScreen({ route }) {
     isLoading: forecastIsLoading,
     error: forecastError,
   } = useQuery({
-    queryKey: ['forecast', lat, lon],
+    queryKey: ['forecast', lat, lng],
     queryFn: () =>
       fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
       ).then((res) => {
         if (!res.ok) {
           throw new Error('Network response was not ok');
@@ -50,16 +57,11 @@ export default function HomeScreen({ route }) {
       }),
   });
 
-  if (weatherIsLoading) {
-    return <Text>Loading...</Text>;
-  }
+  if (weatherIsLoading) return console.log('Loading Data');
+  if (forecastIsLoading) return console.log('Loading Data');
 
   if (weatherError) {
     return <Text>Error fetching data</Text>;
-  }
-
-  if (forecastIsLoading) {
-    return <Text>Loading...</Text>;
   }
 
   if (forecastError) {
@@ -68,7 +70,11 @@ export default function HomeScreen({ route }) {
 
   return (
     <>
-      <StatusBar hidden />
+      <StatusBar
+        barStyle="light-content" // Use light content for dark mode
+        backgroundColor="#000" // Set a dark background color
+        translucent={false} // Optional: Adjust translucency based on your design
+      />
 
       <View style={styles.mainContainer}>
         {/* Header */}

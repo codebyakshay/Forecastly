@@ -9,6 +9,7 @@ import { fonts } from '../../Constant/Fonts';
 
 export const styles = StyleSheet.create({
   mainContainer: {
+    backgroundColor: Colors.cardBackground,
     flex: 1,
     backgroundColor: '#f1ebfc',
   },

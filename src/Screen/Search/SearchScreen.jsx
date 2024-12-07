@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { useQuery } from '@tanstack/react-query';
+import { useSetAtom } from 'jotai'; // Import useSetAtom from Jotai
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from '@rneui/themed'; // Import Icon from @rneui/themed
+import { Icon } from '@rneui/themed';
+import { cityAtom, coordsAtom } from '../../store/store';
 
 const API_KEY = 'e165921261db4772aa67dc681fac4e2a';
 
@@ -42,8 +44,9 @@ const fetchCities = async (query) => {
 
 const SearchScreen = () => {
   const navigation = useNavigation();
+  const setCity = useSetAtom(cityAtom); // Setter for cityAtom
+  const setCoords = useSetAtom(coordsAtom); // Setter for coordsAtom
   const [search, setSearch] = useState('');
-  const [selectedCity, setSelectedCity] = useState(null);
 
   const { data: filteredData = [], isFetching } = useQuery({
     queryKey: ['searchCities', search],
@@ -53,11 +56,10 @@ const SearchScreen = () => {
     cacheTime: 10 * 60 * 1000,
   });
 
-  // console.log(filteredData);
-
   const handleSelect = (city) => {
-    setSelectedCity(city);
-    setSearch(`${city.city}, ${city.country}`); // Show city and country in the search bar
+    setCity(city.city);
+    setCoords(city.coords);
+    setSearch(`${city.city}, ${city.country}`);
     Keyboard.dismiss();
 
     navigation.reset({
@@ -65,10 +67,6 @@ const SearchScreen = () => {
       routes: [
         {
           name: 'Home',
-          params: {
-            lat: city.coords.lat,
-            lon: city.coords.lng,
-          },
         },
       ],
     });
@@ -95,7 +93,11 @@ const SearchScreen = () => {
           inputStyle={styles.inputText}
           placeholderTextColor="#aaa"
           searchIcon={<Icon name="search" size={24} />}
-          clearIcon={<Icon name="close" size={24} />}
+          clearIcon={
+            <TouchableOpacity onPress={() => setSearch('')}>
+              <Icon name="close" size={24} />
+            </TouchableOpacity>
+          }
         />
 
         {isFetching && (

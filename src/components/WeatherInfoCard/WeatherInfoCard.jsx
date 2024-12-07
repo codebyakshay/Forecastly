@@ -4,8 +4,6 @@ import { styles } from './styles';
 import { wp } from '../../utils/Responsive';
 
 import WindIcon from 'react-native-vector-icons/FontAwesome6';
-import ArrowUp from 'react-native-vector-icons/MaterialIcons';
-import ArrowDown from 'react-native-vector-icons/MaterialIcons';
 
 const yesterdayWindSpeed = 14;
 const todayWindSpeed = 15;
