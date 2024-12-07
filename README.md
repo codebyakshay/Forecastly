@@ -2,7 +2,7 @@
 
 Forecastly is a weather forecasting app designed to provide users with real-time weather updates, forecasts, and weather-related data. Built with React Native, it ensures a seamless and responsive user experience across both iOS and Android platforms.
 
-![Forecastly Demo](https://codebyakshay.com/demo_forecastly/DEMO_FORECASTly.gif)
+![Forecastly Demo](https://codebyakshay.com/demo_forecastly/demo.gif)
 
 ## Features
 
